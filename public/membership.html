@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership - Library Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Membership Module</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <a href="admin-home.html" class="btn btn-secondary">Back to Home</a>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+        
+        <div class="nav-menu">
+            <ul>
+                <li><button onclick="showAddMembership()" class="btn btn-primary">Add Membership</button></li>
+                <li><button onclick="showUpdateMembership()" class="btn btn-primary">Update Membership</button></li>
+            </ul>
+        </div>
+        
+        <div id="addMembershipSection" class="form-container" style="display: none;">
+            <h2>Add Membership</h2>
+            <form id="addMembershipForm">
+                <div class="form-group">
+                    <label for="addMembershipNumber">Membership Number:</label>
+                    <input type="text" id="addMembershipNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMemberName">Name:</label>
+                    <input type="text" id="addMemberName" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMemberEmail">Email:</label>
+                    <input type="email" id="addMemberEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMemberPhone">Phone:</label>
+                    <input type="text" id="addMemberPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMemberAddress">Address:</label>
+                    <textarea id="addMemberAddress" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Membership Type:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="addMembershipType" value="6 months" checked> 6 months</label>
+                        <label><input type="radio" name="addMembershipType" value="1 year"> 1 year</label>
+                        <label><input type="radio" name="addMembershipType" value="2 years"> 2 years</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Membership</button>
+            </form>
+            <div id="addMembershipError" class="error-message"></div>
+            <div id="addMembershipSuccess" class="success-message"></div>
+        </div>
+        
+        <div id="updateMembershipSection" class="form-container" style="display: none;">
+            <h2>Update Membership</h2>
+            <form id="updateMembershipForm">
+                <div class="form-group">
+                    <label for="updateMembershipNumber">Membership Number:</label>
+                    <input type="text" id="updateMembershipNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMemberName">Name:</label>
+                    <input type="text" id="updateMemberName" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMemberEmail">Email:</label>
+                    <input type="email" id="updateMemberEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMemberPhone">Phone:</label>
+                    <input type="text" id="updateMemberPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMemberAddress">Address:</label>
+                    <textarea id="updateMemberAddress" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Extend Membership:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="updateMembershipType" value="6 months" checked> 6 months</label>
+                        <label><input type="radio" name="updateMembershipType" value="1 year"> 1 year</label>
+                        <label><input type="radio" name="updateMembershipType" value="2 years"> 2 years</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Cancel Membership:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="cancelMembership"> Cancel Membership</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Membership</button>
+            </form>
+            <div id="updateMembershipError" class="error-message"></div>
+            <div id="updateMembershipSuccess" class="success-message"></div>
+        </div>
+    </div>
+    <script src="js/common.js"></script>
+    <script src="js/membership.js"></script>
+    <script>
+        if (!checkAuth()) {
+            // Redirect will happen in checkAuth
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user.role !== 'admin') {
+            window.location.href = 'user-home.html';
+        }
+        
+        document.getElementById('userName').textContent = `Welcome, ${user.name || user.username}`;
+    </script>
+</body>
+</html>
+

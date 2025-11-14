@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Homepage - Library Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Library Management System - User Dashboard</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+        
+        <div class="nav-menu">
+            <ul>
+                <li><a href="user-home.html" class="btn btn-primary">Home</a></li>
+                <li><a href="transactions.html" class="btn btn-primary">Transactions</a></li>
+                <li><a href="reports.html" class="btn btn-primary">Reports</a></li>
+            </ul>
+        </div>
+        
+        <div class="card-grid">
+            <div class="card">
+                <h3>Transactions</h3>
+                <p>Issue and return books, manage fines</p>
+                <a href="transactions.html" class="btn btn-primary">Go to Transactions</a>
+            </div>
+            <div class="card">
+                <h3>Reports</h3>
+                <p>View system reports and analytics</p>
+                <a href="reports.html" class="btn btn-primary">Go to Reports</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/common.js"></script>
+    <script>
+        if (!checkAuth()) {
+            // Redirect will happen in checkAuth
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user.role === 'admin') {
+            window.location.href = 'admin-home.html';
+        }
+        
+        document.getElementById('userName').textContent = `Welcome, ${user.name || user.username}`;
+    </script>
+</body>
+</html>
+

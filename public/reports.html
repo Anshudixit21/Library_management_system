@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Library Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Reports Module</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <a href="admin-home.html" id="backLink" class="btn btn-secondary">Back to Home</a>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+        
+        <div class="nav-menu">
+            <ul>
+                <li><button onclick="loadReports('transactions')" class="btn btn-primary">Transactions Report</button></li>
+                <li><button onclick="loadReports('books')" class="btn btn-primary">Books Report</button></li>
+                <li><button onclick="loadReports('memberships')" class="btn btn-primary">Memberships Report</button></li>
+                <li><button onclick="loadReports('fines')" class="btn btn-primary">Fines Report</button></li>
+            </ul>
+        </div>
+        
+        <div id="reportsContent"></div>
+    </div>
+    <script src="js/common.js"></script>
+    <script src="js/reports.js"></script>
+    <script>
+        if (!checkAuth()) {
+            // Redirect will happen in checkAuth
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        document.getElementById('userName').textContent = `Welcome, ${user.name || user.username}`;
+        
+        // Set back link based on role
+        if (user.role === 'admin') {
+            document.getElementById('backLink').href = 'admin-home.html';
+        } else {
+            document.getElementById('backLink').href = 'user-home.html';
+        }
+    </script>
+</body>
+</html>
+

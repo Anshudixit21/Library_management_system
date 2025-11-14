@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance - Library Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Maintenance Module</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <a href="admin-home.html" class="btn btn-secondary">Back to Home</a>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+        
+        <div class="nav-menu">
+            <ul>
+                <li><button onclick="showAddBook()" class="btn btn-primary">Add Book</button></li>
+                <li><button onclick="showUpdateBook()" class="btn btn-primary">Update Book</button></li>
+                <li><button onclick="showUserManagement()" class="btn btn-primary">User Management</button></li>
+            </ul>
+        </div>
+        
+        <div id="addBookSection" class="form-container" style="display: none;">
+            <h2>Add Book</h2>
+            <form id="addBookForm">
+                <div class="form-group">
+                    <label>Type:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="type" value="book" checked> Book</label>
+                        <label><input type="radio" name="type" value="movie"> Movie</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="addBookName">Book Name:</label>
+                    <input type="text" id="addBookName" required>
+                </div>
+                <div class="form-group">
+                    <label for="addAuthor">Author:</label>
+                    <input type="text" id="addAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label for="addSerialNo">Serial No:</label>
+                    <input type="text" id="addSerialNo" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Book</button>
+            </form>
+            <div id="addBookError" class="error-message"></div>
+            <div id="addBookSuccess" class="success-message"></div>
+        </div>
+        
+        <div id="updateBookSection" class="form-container" style="display: none;">
+            <h2>Update Book</h2>
+            <form id="updateBookForm">
+                <div class="form-group">
+                    <label for="updateBookId">Select Book (Serial No):</label>
+                    <select id="updateBookId" required>
+                        <option value="">Select a book</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Type:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="updateType" value="book" checked> Book</label>
+                        <label><input type="radio" name="updateType" value="movie"> Movie</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="updateBookName">Book Name:</label>
+                    <input type="text" id="updateBookName" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateAuthor">Author:</label>
+                    <input type="text" id="updateAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateSerialNo">Serial No:</label>
+                    <input type="text" id="updateSerialNo" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Book</button>
+            </form>
+            <div id="updateBookError" class="error-message"></div>
+            <div id="updateBookSuccess" class="success-message"></div>
+        </div>
+        
+        <div id="userManagementSection" class="form-container" style="display: none;">
+            <h2>User Management</h2>
+            <form id="userManagementForm">
+                <div class="form-group">
+                    <label>User Type:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="userType" value="new" checked> New User</label>
+                        <label><input type="radio" name="userType" value="existing"> Existing User</label>
+                    </div>
+                </div>
+                <div class="form-group" id="existingUserSelect" style="display: none;">
+                    <label for="selectUserId">Select User:</label>
+                    <select id="selectUserId">
+                        <option value="">Select a user</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="userName">Name:</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="userUsername">Username:</label>
+                    <input type="text" id="userUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="userEmail">Email:</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPassword">Password:</label>
+                    <input type="password" id="userPassword">
+                </div>
+                <div class="form-group">
+                    <label for="userRole">Role:</label>
+                    <select id="userRole" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <div id="userManagementError" class="error-message"></div>
+            <div id="userManagementSuccess" class="success-message"></div>
+        </div>
+    </div>
+    <script src="js/common.js"></script>
+    <script src="js/maintenance.js"></script>
+    <script>
+        if (!checkAuth()) {
+            // Redirect will happen in checkAuth
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user.role !== 'admin') {
+            window.location.href = 'admin-home.html';
+        }
+    </script>
+</body>
+</html>
+

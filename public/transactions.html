@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - Library Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Transactions Module</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <a href="admin-home.html" id="backLink" class="btn btn-secondary">Back to Home</a>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+        
+        <div class="nav-menu">
+            <ul>
+                <li><button onclick="showBookAvailable()" class="btn btn-primary">Book Available</button></li>
+                <li><button onclick="showBookIssue()" class="btn btn-primary">Book Issue</button></li>
+                <li><button onclick="showReturnBook()" class="btn btn-primary">Return Book</button></li>
+                <li><button onclick="showFinePay()" class="btn btn-primary">Fine Pay</button></li>
+            </ul>
+        </div>
+        
+        <div id="bookAvailableSection" class="form-container" style="display: none;">
+            <h2>Book Available</h2>
+            <form id="bookAvailableForm">
+                <div class="form-group">
+                    <label for="searchBookName">Book Name:</label>
+                    <input type="text" id="searchBookName">
+                </div>
+                <div class="form-group">
+                    <label for="searchAuthor">Author:</label>
+                    <input type="text" id="searchAuthor">
+                </div>
+                <div class="form-group">
+                    <label for="searchType">Type:</label>
+                    <select id="searchType">
+                        <option value="">All</option>
+                        <option value="book">Book</option>
+                        <option value="movie">Movie</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="searchSerialNo">Serial No:</label>
+                    <input type="text" id="searchSerialNo">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            <div id="bookAvailableError" class="error-message"></div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+        
+        <div id="bookIssueSection" class="form-container" style="display: none;">
+            <h2>Book Issue</h2>
+            <form id="bookIssueForm">
+                <div class="form-group">
+                    <label for="issueBookName">Book Name:</label>
+                    <input type="text" id="issueBookName" required>
+                </div>
+                <div class="form-group">
+                    <label for="issueAuthor">Author:</label>
+                    <input type="text" id="issueAuthor" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="issueMembershipNumber">Membership Number:</label>
+                    <input type="text" id="issueMembershipNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="issueDate">Issue Date:</label>
+                    <input type="date" id="issueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="returnDate">Return Date:</label>
+                    <input type="date" id="returnDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="issueRemarks">Remarks:</label>
+                    <textarea id="issueRemarks"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Issue Book</button>
+            </form>
+            <div id="bookIssueError" class="error-message"></div>
+            <div id="bookIssueSuccess" class="success-message"></div>
+        </div>
+        
+        <div id="returnBookSection" class="form-container" style="display: none;">
+            <h2>Return Book</h2>
+            <form id="returnBookForm">
+                <div class="form-group">
+                    <label for="returnBookName">Book Name:</label>
+                    <input type="text" id="returnBookName" required>
+                </div>
+                <div class="form-group">
+                    <label for="returnAuthor">Author:</label>
+                    <input type="text" id="returnAuthor" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="returnSerialNo">Serial No:</label>
+                    <input type="text" id="returnSerialNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="returnIssueDate">Issue Date:</label>
+                    <input type="date" id="returnIssueDate" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="returnReturnDate">Return Date:</label>
+                    <input type="date" id="returnReturnDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Confirm Return</button>
+            </form>
+            <div id="returnBookError" class="error-message"></div>
+            <div id="returnBookSuccess" class="success-message"></div>
+        </div>
+        
+        <div id="finePaySection" class="form-container" style="display: none;">
+            <h2>Fine Pay</h2>
+            <form id="finePayForm">
+                <div class="form-group">
+                    <label for="fineBookName">Book Name:</label>
+                    <input type="text" id="fineBookName" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="fineAuthor">Author:</label>
+                    <input type="text" id="fineAuthor" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="fineSerialNo">Serial No:</label>
+                    <input type="text" id="fineSerialNo" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="fineAmount">Fine Amount:</label>
+                    <input type="number" id="fineAmount" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="finePaid">Fine Paid:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="finePaid"> Yes</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fineRemarks">Remarks:</label>
+                    <textarea id="fineRemarks"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </form>
+            <div id="finePayError" class="error-message"></div>
+            <div id="finePaySuccess" class="success-message"></div>
+        </div>
+    </div>
+    <script src="js/common.js"></script>
+    <script src="js/transactions.js"></script>
+    <script>
+        if (!checkAuth()) {
+            // Redirect will happen in checkAuth
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        document.getElementById('userName').textContent = `Welcome, ${user.name || user.username}`;
+        
+        // Set back link based on role
+        if (user.role === 'admin') {
+            document.getElementById('backLink').href = 'admin-home.html';
+        } else {
+            document.getElementById('backLink').href = 'user-home.html';
+        }
+    </script>
+</body>
+</html>
+
